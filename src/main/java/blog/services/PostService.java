@@ -1,4 +1,4 @@
-package blog.models;
+package blog.services;
 import blog.models.Post;
 import java.util.List;
 
