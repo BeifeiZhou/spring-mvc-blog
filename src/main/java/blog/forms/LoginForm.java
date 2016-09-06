@@ -1,6 +1,7 @@
 package blog.forms;
 
 
+import org.hibernate.validator.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,6 +15,10 @@ public class LoginForm {
     @NotNull
     @Size(min=1, max=50)
     private String password;
+
+    @NotNull
+    @Email
+    private String email;
 
     public String getUsername() {
         return username;
@@ -30,4 +35,7 @@ public class LoginForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getEmail(){ return email;}
+    public void setEmail(String email){this.email = email;}
 }
