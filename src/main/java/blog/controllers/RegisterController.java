@@ -39,14 +39,22 @@ public class RegisterController {
 
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     public String registerPage(@Valid LoginForm loginForm, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
-            notifyService.addErrorMessage("Please fill the form correctly!");
             return "users/register";
         }
 
-        notifyService.addInfoMessage("Register successful");
-        return "redirect:/";
+        if (userService.userNameExist(loginForm.getUsername())) {
+            notifyService.addErrorMessage("The username is already in use. enter a different username");
+            return "users/register";
+        } else if (userService.emailExist(loginForm.getEmail())) {
+            notifyService.addErrorMessage("The email is already in use. enter a different email");
+            return "users/register";
+        } else {
+            notifyService.addInfoMessage("Register successful!");
+            User user = new User(null, loginForm.getUsername(), null, loginForm.getPassword(), loginForm.getEmail());
+            userService.addUser(user);
+            return "redirect:/users/login";
+        }
     }
 }
 

@@ -19,9 +19,9 @@ public class PostServiceStubImpl implements PostService{
         add(new Post(1L, "First Post", "<p>Line #1.</p><p>Line #2</p>", null));
         add(new Post(2L, "Second Post",
                 "Second post content:<ul><li>line 1</li><li>line 2</li></p>",
-                new User(10L, "pesho10", "Peter Ivanov")));
+                new User(10L, "pesho10", "Peter Ivanov", "wegwg", null)));
         add(new Post(3L, "Post #3", "<p>The post number 3 nice</p>",
-                new User(10L, "merry", null)));
+                new User(10L, "merry", null, null, null)));
         add(new Post(4L, "Forth Post", "<p>Not interesting post</p>", null));
         add(new Post(5L, "Post Number 5", "<p>Just posting</p>", null));
         add(new Post(6L, "Sixth Post", "<p>Another interesting post</p>", null));
@@ -29,14 +29,16 @@ public class PostServiceStubImpl implements PostService{
 
     @Override
     public List<Post> findAll() {
-        return this.posts;
+        return this.posts.stream()
+                .sorted((a, b) -> b.getDate().compareTo(a.getDate()))
+                .limit(5)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Post> findLatest5() {
         return this.posts.stream()
                 .sorted((a, b) -> b.getDate().compareTo(a.getDate()))
-                .limit(5)
                 .collect(Collectors.toList());
     }
 

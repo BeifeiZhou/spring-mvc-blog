@@ -18,12 +18,12 @@
         th:errors="*{username}">Invalid username</span>
 
     <div><label for="password" th:value="*{username}">Password:</label></div>
-    <input id="password" type="password" name="password" th:value="*{password}" />
+    <input id="password" type="text" name="password" th:value="*{password}" />
   <span class="formError" th:if="${#fields.hasErrors('password')}"
         th:errors="*{password}">Invalid password</span>
 
     <div><label for="email" th:value="*{username}">Email:</label></div>
-    <input id="email" type="email" name="email" th:value="*{email}" />
+    <input id="email" type="text" name="email" th:value="*{email}" />
   <span class="formError" th:if="${#fields.hasErrors('email')}"
         th:errors="*{email}">Invalid email</span>
 

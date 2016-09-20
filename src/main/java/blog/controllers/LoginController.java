@@ -30,18 +30,12 @@ public class LoginController {
 
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
     public String loginPage(@Valid LoginForm loginForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            notifyService.addErrorMessage("Please fill the form correctly!");
-            return "users/login";
-        }
-
-        if (!userService.authenticate(
-            loginForm.getUsername(), loginForm.getPassword())) {
+        if (userService.authenticate(loginForm.getUsername(), loginForm.getPassword())) {
+            notifyService.addInfoMessage("Login successful");
+            return "redirect:/";
+        }else{
             notifyService.addErrorMessage("Invalid login!");
             return "users/login";
         }
-
-        notifyService.addInfoMessage("Login successful");
-        return "redirect:/";
     }
 }
